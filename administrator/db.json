@@ -1,0 +1,20 @@
+{
+  "product": [
+    {
+      "title": "JSDJ",
+      "gender": "JSDFJ",
+      "price": "25",
+      "category": "ADFS",
+      "image": "DFSFS",
+      "id": 1
+    },
+    {
+      "title": "JSDJ",
+      "gender": "JSDFJ",
+      "price": "25",
+      "category": "ADFS",
+      "image": "DFSFS",
+      "id": 2
+    }
+  ]
+}
