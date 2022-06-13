@@ -107,7 +107,7 @@ const ProductForm =()=>{
                     
 
             </div>
-            <button className="prv-button" onClick={()=>setPage(page-1)} disabled={page===1}>Previous</button>
+            <button className="prv-button" onClick={()=>setPage(page-1)} disabled={page===1}>Previous</button> &nbsp;<span>Page No. {page}</span> &nbsp;
             <button className="next-button" onClick={()=>setPage(page+1)} disabled={product && product.length <pageLimit}>Next</button>
             
         </div>
