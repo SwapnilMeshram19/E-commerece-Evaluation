@@ -1,23 +1,20 @@
-const DisplayProduct = ()=>{
+import React from "react";
 
-    try {
-    
-        let res=fetch("http://localhost:3001/product");
-        let data=res.json();
-        console.log(data)
-
-
-    } catch (error) {
-        console.log(error)
-    }
-    
-    
-
+const DisplayProduct = (prop)=>{
+  
+let item=prop;
     return (
-        <div>
-
+        <div className="item">
+          <img src={item.image}/>
+          <h4>{item.title} &nbsp; {item.category}</h4>
+          <div>
+            <span>Gender: {item.gender}</span> &nbsp;
+            <span>Price: &#8377;{item.price}</span>
+          </div>
         </div>
     )
 }
+
+
 
 export default DisplayProduct;

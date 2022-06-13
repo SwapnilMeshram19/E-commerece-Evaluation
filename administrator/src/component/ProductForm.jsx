@@ -1,7 +1,30 @@
 import React from "react";
+import DisplayProduct from "./DisplayProduct";
 const ProductForm =()=>{
-
+    const [product, setProduct]=React.useState([])
     const [inputValue, setInputValue]=React.useState({});
+    const [loading, setLoading]=React.useState(false);
+    const [error, setError]=React.useState(false);
+    const [page,setPage]=React.useState(1)
+    const pageLimit=5;
+
+    React.useEffect(()=>{
+        setLoading(true);
+        let url="http://localhost:3001/product?_page="+page+"&_limit="+pageLimit;
+        fetch(url)
+        .then((res)=>res.json())
+        .then((res)=>{
+            setProduct(res)
+        })
+        .catch((err)=>{
+            setError(true);
+            setProduct([]);
+        })
+        .finally(()=>{
+            setLoading(false);
+        })
+    },[page]);
+   
 
     const onInputChange = (event)=>{
         const name=event.target.name;
@@ -29,8 +52,9 @@ const ProductForm =()=>{
         
     }
 
-    return (
-        <div>
+
+    return loading ?(<h1>Loading.....</h1>):error?(<h1>Something Went Wrong.......</h1>):(
+        <div className="container">
             <div className="product-form">
                 <label>Title<br/>
                     <input
@@ -64,7 +88,7 @@ const ProductForm =()=>{
                         onChange={onInputChange}
                     />
                 </label><br/>
-                <label>image<br/> 
+                <label>Image<br/> 
                     <input
                         type="text"
                         name="image"
@@ -72,8 +96,20 @@ const ProductForm =()=>{
                         onChange={onInputChange}
                     />
                 </label><br/>
-                <button onClick={addProduct}> Add Product</button>
+                <button className="add-button" onClick={addProduct}> Add Product</button>
             </div>
+            <div className="product-display">
+                {
+                    product.map((item)=>
+                        <DisplayProduct {...item} key={item.id}/>
+                    )
+                }
+                    
+
+            </div>
+            <button className="prv-button" onClick={()=>setPage(page-1)} disabled={page===1}>Previous</button>
+            <button className="next-button" onClick={()=>setPage(page+1)} disabled={product && product.length <pageLimit}>Next</button>
+            
         </div>
     )
 }
